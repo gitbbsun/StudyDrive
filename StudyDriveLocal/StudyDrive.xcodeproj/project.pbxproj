@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0712FDA01C1C499300DE0A4A /* SelectModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712FD9F1C1C499300DE0A4A /* SelectModelView.m */; };
+		0712FDA31C1C625800DE0A4A /* SheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712FDA21C1C625800DE0A4A /* SheetView.m */; };
 		E80D38561BE4E07000B917E7 /* SelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E80D38551BE4E07000B917E7 /* SelectView.m */; };
 		E80D38591BE54A2900B917E7 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E80D38581BE54A2900B917E7 /* FirstViewController.m */; };
 		E80D385D1BE552C000B917E7 /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E80D385B1BE552C000B917E7 /* FirstTableViewCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -233,6 +235,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0712FD9E1C1C499300DE0A4A /* SelectModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectModelView.h; sourceTree = "<group>"; };
+		0712FD9F1C1C499300DE0A4A /* SelectModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModelView.m; sourceTree = "<group>"; };
+		0712FDA11C1C625800DE0A4A /* SheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetView.h; sourceTree = "<group>"; };
+		0712FDA21C1C625800DE0A4A /* SheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetView.m; sourceTree = "<group>"; };
 		E80D38541BE4E07000B917E7 /* SelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectView.h; sourceTree = "<group>"; };
 		E80D38551BE4E07000B917E7 /* SelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectView.m; sourceTree = "<group>"; };
 		E80D38571BE54A2900B917E7 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
@@ -821,6 +827,10 @@
 				E80D38551BE4E07000B917E7 /* SelectView.m */,
 				E83CADB41BF4C6EA00E55ACE /* AnswerScrollView.h */,
 				E83CADB51BF4C6EA00E55ACE /* AnswerScrollView.m */,
+				0712FD9E1C1C499300DE0A4A /* SelectModelView.h */,
+				0712FD9F1C1C499300DE0A4A /* SelectModelView.m */,
+				0712FDA11C1C625800DE0A4A /* SheetView.h */,
+				0712FDA21C1C625800DE0A4A /* SheetView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1126,9 +1136,11 @@
 			files = (
 				E88251141BE3B10600A791A5 /* ViewController.m in Sources */,
 				E88251111BE3B10600A791A5 /* AppDelegate.m in Sources */,
+				0712FDA31C1C625800DE0A4A /* SheetView.m in Sources */,
 				E83CADBD1BF4D52D00E55ACE /* AnswerTableViewCell.m in Sources */,
 				E80D385D1BE552C000B917E7 /* FirstTableViewCell.m in Sources */,
 				E8D57C041BE911CD00A3CC00 /* SecModel.m in Sources */,
+				0712FDA01C1C499300DE0A4A /* SelectModelView.m in Sources */,
 				E8D57C001BE9063D00A3CC00 /* MyDataManager.m in Sources */,
 				E85D5A971BE6462800C65F2E /* FMDatabase.m in Sources */,
 				E85D594B1BE6239300C65F2E /* SecTableViewCell.m in Sources */,

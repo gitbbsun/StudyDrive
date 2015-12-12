@@ -10,8 +10,12 @@
 #import "AnswerScrollView.h"
 #import "MyDataManager.h"
 #import "AnswerModel.h"
+#import "SelectModelView.h"
+#import "SheetView.h"
 @interface AnswerViewController (){
     AnswerScrollView *view;
+    SelectModelView *modelView;
+    SheetView * _sheetView;
 }
 @end
 
@@ -33,8 +37,33 @@
     view =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:arry];
     [self.view addSubview:view];
     [self createToolBar];
+    [self createModelView];
+    [self createSheetView];
     
 }
+-(void)createSheetView{
+    _sheetView=[[SheetView alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)withSuperView:self.view andQuestionsCount:50];
+    [self.view addSubview:_sheetView];
+    
+    
+}
+
+-(void)createModelView{
+    modelView=[[SelectModelView alloc]initwithFrame:self.view.frame addTouch:^(SelectMode model) {
+        NSLog(@"111");
+    }];
+    [self.view addSubview:modelView];
+    modelView.alpha=0;
+    UIBarButtonItem * item =[[UIBarButtonItem alloc]initWithTitle:@"答题模式" style:UIBarButtonItemStylePlain target:self action:@selector(modelChage:)];
+    self.navigationItem.rightBarButtonItem=item;
+}
+
+-(void)modelChage:(UIBarButtonItem *)item{
+    [UIView animateWithDuration:0.3 animations:^{
+        modelView.alpha=1;
+    }];
+}
+                            
 -(void)createToolBar{
     NSArray *arr=@[@"1111",@"查看答案",@"收藏本题"];
     UIView *barView=[[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-120, self.view.frame.size.width, 120)];
@@ -58,6 +87,13 @@
 }
 -(void)clickToolBar:(UIButton *)btn{
     switch (btn.tag) {
+            case 301:
+        {
+        [UIView animateWithDuration:0.3 animations:^{
+            _sheetView.frame=CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height-80);
+            _sheetView->_backView.alpha=0.8;
+        }];
+        }
         case 302:{
             if ([view.hadAnswerArray[view.currentPage] intValue]!=0) {
                 return;
@@ -80,15 +116,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
