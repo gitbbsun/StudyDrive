@@ -17,7 +17,7 @@
 @end
 @implementation AnswerScrollView
 {
-    UIScrollView *_scrollView;
+   // UIScrollView *_scrollView;
     UITableView *_leftTableView;
     UITableView *_mainTableView;
     UITableView *_rightTableView;   

@@ -13,7 +13,7 @@
 #import "SelectModelView.h"
 #import "SheetView.h"
 @interface AnswerViewController (){
-    AnswerScrollView *view;
+    AnswerScrollView *_answerScrollView;
     SelectModelView *modelView;
     SheetView * _sheetView;
 }
@@ -34,8 +34,8 @@
         [marray addObject:model];
     }
     }
-    view =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:arry];
-    [self.view addSubview:view];
+    _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:arry];
+    [self.view addSubview:_answerScrollView];
     [self createToolBar];
     [self createModelView];
     [self createSheetView];
@@ -43,8 +43,16 @@
 }
 -(void)createSheetView{
     _sheetView=[[SheetView alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)withSuperView:self.view andQuestionsCount:50];
+    _sheetView.delegate=self;
     [self.view addSubview:_sheetView];
     
+    
+}
+//设置代理
+-(void)SheetViewClick:(int)index{
+    UIScrollView *scroll=_answerScrollView->_scrollView;
+    scroll.contentOffset=CGPointMake((index-1)*scroll.frame.size.width, 0);
+    [scroll.delegate scrollViewDidEndDecelerating:scroll];
     
 }
 
@@ -95,14 +103,14 @@
         }];
         }
         case 302:{
-            if ([view.hadAnswerArray[view.currentPage] intValue]!=0) {
+            if ([_answerScrollView.hadAnswerArray[_answerScrollView.currentPage] intValue]!=0) {
                 return;
             }
             else{
-                AnswerModel *model=[view.dataArray objectAtIndex:view.currentPage];
+                AnswerModel *model=[_answerScrollView.dataArray objectAtIndex:_answerScrollView.currentPage];
                 NSString *answer=model.manswer;
                 char an=[answer characterAtIndex:0];
-                [view.hadAnswerArray replaceObjectAtIndex:view.currentPage withObject:[NSString stringWithFormat:@"%d",an-'A'+1]];
+                [_answerScrollView.hadAnswerArray replaceObjectAtIndex:_answerScrollView.currentPage withObject:[NSString stringWithFormat:@"%d",an-'A'+1]];
             }
         }
            
