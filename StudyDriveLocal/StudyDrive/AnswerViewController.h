@@ -10,4 +10,7 @@
 
 @interface AnswerViewController : UIViewController
 @property(nonatomic,assign)int number;
+@property(nonatomic,copy)NSString *SubStrNumber;
+//1=章节 2=顺序 3＝随机 4=专项
+@property(nonatomic,assign)int type;
 @end

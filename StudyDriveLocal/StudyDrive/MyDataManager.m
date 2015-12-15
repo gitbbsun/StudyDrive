@@ -10,6 +10,7 @@
 #import "FMDatabase.h"
 #import "SecModel.h"
 #import "AnswerModel.h"
+#import "SubSecModel.h"
 @implementation MyDataManager
 +(NSArray *)getData:(DataType)type{
     static FMDatabase *dataBase;
@@ -44,16 +45,31 @@
             FMResultSet *result=[dataBase executeQuery:sql];
             while ([result next]) {
                 AnswerModel *model=[[AnswerModel alloc]init];
-                model.mquestion=[result stringForColumn:@"mquestion"];
+                 model.mquestion=[result stringForColumn:@"mquestion"];
                  model.mdesc=[result stringForColumn:@"mdesc"];
                  model.mid=[NSString stringWithFormat:@"%d",[result intForColumn:@"mid"]];
                  model.manswer=[result stringForColumn:@"manswer"];
                  model.mimage=[result stringForColumn:@"mimage"];
-                model.pid=[NSString stringWithFormat:@"%d",[result intForColumn:@"pid"]];
+                 model.pid=[NSString stringWithFormat:@"%d",[result intForColumn:@"pid"]];
                  model.pname=[result stringForColumn:@"pname"];
-                 model.sid=[NSString stringWithFormat:@"%d",[result intForColumn:@"sid"]];
+                 model.sid=[NSString stringWithFormat:@"%.2f",[result doubleForColumn:@"sid"]];
                  model.sname=[result stringForColumn:@"sname"];
                  model.mtype=[NSString stringWithFormat:@"%d",[result intForColumn:@"mtype"]];
+                [mutableArray addObject:model];
+            }
+        }
+            break;
+        case subChapter:
+        {
+            NSString *sql=@"select serial, pid,sname,scount,sid FROM secondlevel";
+            FMResultSet *result=[dataBase executeQuery:sql];
+            while ([result next]) {
+                SubSecModel *model=[[SubSecModel alloc]init];
+                model.pid=[NSString stringWithFormat:@"%d",[result intForColumn:@"pid"]];
+                model.sid=[NSString stringWithFormat:@"%.2f",[result doubleForColumn:@"sid"]];
+                model.sname=[result stringForColumn:@"sname"];
+                model.scount=[NSString stringWithFormat:@"%d",[result intForColumn:@"scount"]];
+                model.serial=[NSString stringWithFormat:@"%d",[result intForColumn:@"serial"]];
                 [mutableArray addObject:model];
             }
         }

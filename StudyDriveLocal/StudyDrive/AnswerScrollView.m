@@ -106,7 +106,7 @@
         hight= [Tool getSizeWithString:str with:font withSize:CGSizeMake(tableView.frame.size.width-20,400)].height+20;
     }else
     {
-        NSString *str=model.mquestion;
+        str=model.mquestion;
         UIFont *font=[UIFont systemFontOfSize:16];
         hight= [Tool getSizeWithString:str with:font withSize:CGSizeMake(tableView.frame.size.width-20,400)].height+20;
     }
@@ -190,7 +190,7 @@
     }
     else{
         //0代表的是没有答过   1=A 2=B 3=C 4=D
-        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
+        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%d",indexPath.row+1]];
     }
     [self reloadData];
 }

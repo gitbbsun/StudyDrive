@@ -10,7 +10,7 @@
 #import "FirstTableViewCell.h"
 #import "SecViewController.h"
 #import "MyDataManager.h"
-
+#import "AnswerViewController.h"
 @interface FirstViewController()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tableView;
     NSArray *_dataArray1;
@@ -30,6 +30,7 @@
 }
 -(void)CreateView{
     UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-150,self.view.frame.size.height-64-140, 300, 30)];
+    NSLog(@"My view frame: %@", NSStringFromCGRect(self.view.frame));
     label.text=@"...............我的考试分析...............";
     label.textAlignment=NSTextAlignmentCenter;
     [self.view addSubview:label];
@@ -82,6 +83,7 @@
             SecViewController *sec=[[SecViewController alloc]init];
             sec.dataArray=[MyDataManager getData:chapter];
             sec.myTitle=@"章节练习";
+            sec.type=1;
             UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
             item.title=@"";
             self.navigationItem.backBarButtonItem=item;
@@ -89,7 +91,43 @@
 
         }
             break;
+        case 1://顺序练习
+        {
+            AnswerViewController * answer=[[AnswerViewController alloc]init];
+            answer.type=2;
+            answer.title=@"顺序练习";
+            UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
+            item.title=@"";
+            self.navigationItem.backBarButtonItem=item;
+            [self.navigationController pushViewController:answer animated:YES];
             
+        }
+            break;
+        case 2://随机练习
+        {
+            AnswerViewController * answer=[[AnswerViewController alloc]init];
+            answer.type=3;
+            answer.title=@"随机练习";
+            UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
+            item.title=@"";
+            self.navigationItem.backBarButtonItem=item;
+            [self.navigationController pushViewController:answer animated:YES];
+            
+        }
+            break;
+        case 3://专项练习
+        {
+            SecViewController *sec=[[SecViewController alloc]init];
+            sec.dataArray=[MyDataManager getData:subChapter];
+            sec.myTitle=@"专项练习";
+            sec.type=2;
+            UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
+            item.title=@"";
+            self.navigationItem.backBarButtonItem=item;
+            [self.navigationController pushViewController:sec animated:YES];
+            
+        }
+            break;
         default:
             break;
     }

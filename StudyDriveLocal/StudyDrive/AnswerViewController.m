@@ -26,27 +26,58 @@
     // Do any additional setup after loading the view.
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.view.backgroundColor=[UIColor whiteColor];
-    NSMutableArray *marray=[[NSMutableArray alloc]init];
-    NSArray *arry=[MyDataManager getData:answer];
-       for (int i=0; i<arry.count-1;i++) {
-       AnswerModel *model=[[AnswerModel alloc]init];
-        if ([model.pid intValue]==_number+1) {
-        [marray addObject:model];
-    }
-    }
-    _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:arry];
+    [self createData];
     [self.view addSubview:_answerScrollView];
     [self createToolBar];
     [self createModelView];
     [self createSheetView];
     
 }
+-(void)createData{
+    if (_type==1) {
+        NSMutableArray *marray=[[NSMutableArray alloc]init];
+        NSArray *arry=[MyDataManager getData:answer];
+        for (int i=0; i<arry.count-1;i++) {
+            AnswerModel *model=arry[i];
+            if ([model.pid intValue]==_number+1) {
+                [marray addObject:model];
+            }
+        }
+        _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:marray];
+    }
+    else if(_type==2)
+    {
+         _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:[MyDataManager getData:answer]];
+    }
+    else if(_type==3){
+        NSMutableArray *tempArray=[[NSMutableArray alloc]init];
+        NSArray * array=[MyDataManager getData:answer];
+        NSMutableArray * dataArray=[[NSMutableArray alloc]init];
+        [tempArray addObjectsFromArray:array];
+        for (int i=0; i<tempArray.count; i++) {
+            int index=arc4random()%(tempArray.count);
+            [dataArray addObject:tempArray[index]];
+            [tempArray removeObjectAtIndex:index];
+        }
+         _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:dataArray];
+    }else if(_type==4){
+        NSMutableArray *marray=[[NSMutableArray alloc]init];
+        NSArray *arry=[MyDataManager getData:subChapter];
+        for (int i=0; i<arry.count-1;i++) {
+            AnswerModel *model=arry[i];
+            if ([model.sid intValue]==_number+1) {
+                [marray addObject:model];
+            }
+        }
+        _answerScrollView =[[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-64) withDataArrary:marray];
+    }
+}
+
+//创建抽屉里面的按钮
 -(void)createSheetView{
-    _sheetView=[[SheetView alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)withSuperView:self.view andQuestionsCount:50];
+    _sheetView=[[SheetView alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80)withSuperView:self.view andQuestionsCount:_answerScrollView.dataArray.count];
     _sheetView.delegate=self;
     [self.view addSubview:_sheetView];
-    
-    
 }
 //设置代理
 -(void)SheetViewClick:(int)index{
@@ -73,7 +104,7 @@
 }
                             
 -(void)createToolBar{
-    NSArray *arr=@[@"1111",@"查看答案",@"收藏本题"];
+    NSArray *arr=@[[NSString stringWithFormat:@"%d",_answerScrollView.dataArray.count],@"查看答案",@"收藏本题"];
     UIView *barView=[[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-120, self.view.frame.size.width, 120)];
     barView.backgroundColor=[UIColor whiteColor];
     for(int i=0;i<3;i++){

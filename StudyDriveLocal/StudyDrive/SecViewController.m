@@ -11,6 +11,7 @@
 #import "FMDatabase.h"
 #import "SecModel.h"
 #import "AnswerViewController.h"
+#import "SubSecModel.h"
 @interface SecViewController ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView *_tableView;
 }
@@ -45,11 +46,18 @@
         cell=[[[NSBundle mainBundle]loadNibNamed:cellID owner:self options:nil]lastObject];
         cell.selectionStyle=UITableViewCellEditingStyleNone;
         cell.numberLabel.layer.masksToBounds=YES;
-        cell.numberLabel.layer.cornerRadius=10;
+        cell.numberLabel.layer.cornerRadius=8;
     }
-    SecModel *model=_dataArray[indexPath.row];
-    cell.numberLabel.text=model.pid;
-    cell.titleLabel.text=model.pname;
+    if (_type==1) {
+       SecModel *model=_dataArray[indexPath.row];
+       cell.numberLabel.text=model.pid;
+       cell.titleLabel.text=model.pname;
+    }
+    else{
+        SubSecModel * model=_dataArray[indexPath.row];
+        cell.numberLabel.text=model.serial;
+        cell.titleLabel.text=model.sname;
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -61,11 +69,16 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AnswerViewController *answerView=[[AnswerViewController alloc]init];
-    answerView.title=@"章节练习";
+    //answerView.title=@"章节练习";
     UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
     item.title=@"";
     self.navigationItem.backBarButtonItem=item;
     answerView.number=indexPath.row;
+    if (_type==1) {
+         answerView.type=1;
+    }else{
+         answerView.type=4;
+    }    
     [self.navigationController pushViewController:answerView animated:YES];
 
 }
